@@ -1,0 +1,22 @@
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+import torch
+
+# Cargar el modelo y el tokenizador de GPT-2
+model_name = "gpt2"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
+
+# Función para generar texto
+def generar_respuesta(prompt, max_length=100):
+    inputs = tokenizer.encode(prompt, return_tensors="pt")
+    outputs = model.generate(inputs, max_length=max_length, do_sample=True, temperature=0.7)
+    respuesta = tokenizer.decode(outputs[0], skip_special_tokens=false)
+    return respuesta
+
+# Uso
+while True:
+    entrada = input("Tú: ")
+    if entrada.lower() in ["salir", "exit", "quit"]:
+        break
+    respuesta = generar_respuesta(entrada)
+    print("IA:", respuesta)
